@@ -4,13 +4,10 @@ import {
   StyleSheet,
   Text,
   useColorScheme,
-  View,
   TouchableOpacity,
 } from 'react-native';
 
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { RNCamera } from 'react-native-camera';
-import { useCamera } from 'react-native-camera-hooks';
 import DocumentScanner from 'react-native-document-scanner';
 import PDFLib, { PDFDocument, PDFPage } from 'react-native-pdf-lib';
 import RNFS from 'react-native-fs';
@@ -20,17 +17,6 @@ const Home = ({ navigation }) => {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
-
-  //used ref of camera
-  const [{ cameraRef }, { takePicture }] = useCamera(null);
-
-  //function to capture document image
-  const capture = async () => {
-    const image = await takePicture();
-    const path = image.uri;
-    console.log(path);
-    createPDF(path);
-  }
 
   //function to create pdf from the image
   const createPDF = async (image) => {
@@ -49,40 +35,8 @@ const Home = ({ navigation }) => {
       console.log(error);
     }
   };
-
-
   return (
-    // <SafeAreaView style={styles.safeAreaView}>
-    //   <View style={{flexDirection:'column', justifyContent:"space-around", flex:1}}>
-    //     <View style={{ alignItems: 'center' }}>
-    //       <Text style={{ color: 'white', fontSize: 30, fontWeight:500 }}>Doc to Pdf Converter</Text>
-    //     </View>
-    //     <View style={{ alignItems: 'center' }}>
-    //       <TouchableOpacity onPress={() => navigation.navigate('CameraModule')} style={styles.scanButton}>
-    //         <Text style={{ color: 'white' }} >Open Camera</Text>
-    //       </TouchableOpacity>
-    //     </View>
-    //   </View>
-    // </SafeAreaView>
     <SafeAreaView style={styles.safeAreaView}>
-      {/* <RNCamera
-        ref={cameraRef}
-        style={{ flex: 1, justifyContent: 'flex-end' }}
-        type={RNCamera.Constants.Type.back}
-        captureAudio={false}
-        androidCameraPermissionOptions={{
-          title: 'Permission to use camera',
-          message: 'We need your permission to use your camera',
-          buttonPositive: 'Ok',
-          buttonNegative: 'Cancel',
-        }}
-      >
-        <View style={{ alignItems: 'center', bottom: '10%' }}>
-          <TouchableOpacity onPress={() => capture()} style={styles.scanButton}>
-            <Text style={{ color: 'white' }} >Scan your Document</Text>
-          </TouchableOpacity>
-        </View>
-      </RNCamera> */}
       <DocumentScanner
         useBase64={true}
         captureMultiple={false}
