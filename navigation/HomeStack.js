@@ -1,17 +1,17 @@
-import * as React from 'react';
+import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import CameraModule from '../CameraModule';
-import Home from '../App';
+import Home from '../Home';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 const HomeStack = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen name='Home' component={Home} />
-      <Stack.Screen name='CameraModule' component={CameraModule} />
+        <Stack.Screen name='Home' component={Home} />
+        <Stack.Screen name='CameraModule' component={CameraModule} />
       </Stack.Navigator>
     </NavigationContainer>
   );
